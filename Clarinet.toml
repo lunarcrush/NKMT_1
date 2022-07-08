@@ -1,0 +1,50 @@
+[project]
+name = "moon-project-v7"
+authors = []
+description = ""
+telemetry = false
+requirements = []
+[contracts.admin]
+path = "contracts/admin.clar"
+depends_on = []
+
+[contracts.level-I]
+path = "contracts/level-I.clar"
+depends_on = ["sip-090-trait-nft-standard"]
+
+[contracts.level-II]
+path = "contracts/level-II.clar"
+depends_on = ["sip-090-trait-nft-standard"]
+
+[contracts.level-III]
+path = "contracts/level-III.clar"
+depends_on = ["sip-090-trait-nft-standard"]
+
+[contracts.level-IV]
+path = "contracts/level-IV.clar"
+depends_on = []
+
+[contracts.sip-010-trait-nft-standard]
+path = "contracts/sip-010-trait-nft-standard.clar"
+depends_on = []
+
+[contracts.sip-090-trait-nft-standard]
+path = "contracts/sip-090-trait-nft-standard.clar"
+depends_on = []
+
+[contracts.treasure-chest]
+path = "contracts/treasure-chest.clar"
+depends_on = ["sip-090-trait-nft-standard", "sip-010-trait-nft-standard"]
+
+[repl]
+costs_version = 2
+parser_version = 2
+
+[repl.analysis]
+passes = ["check_checker"]
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
