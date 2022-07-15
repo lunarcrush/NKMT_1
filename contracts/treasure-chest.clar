@@ -1,8 +1,8 @@
 ;; Treasure Chest Contract
-;; The Moon 1/1
+;; The treasure chest contract meant for the winner
 ;; Written by the ClarityClear team
 
-;; Level-IV NFT
+;; Treasure Chest
 ;; The level-IV NFT is a single 1/1 that'll be locked in the wallet inscribed on the rover
 ;; This is the final NFT required for a user to be "active" to claim the treasure stored on the moon
 

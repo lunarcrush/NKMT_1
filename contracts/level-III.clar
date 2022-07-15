@@ -14,7 +14,7 @@
 (define-non-fungible-token level-III uint)
 
 ;; constants
-(define-constant level-III-limit u6000)
+(define-constant level-III-limit u2001)
 (define-constant contract-owner tx-sender)
 
 ;; error messages
@@ -26,7 +26,7 @@
 
 ;; vars
 (define-data-var ipfs-root (string-ascii 102) "ipfs://ipfs/QmYcrELFT5c9pjSygFFXk8jfVMHB5cBoWJDGafbHbATvrP/pm_")
-(define-data-var level-III-index uint u0)
+(define-data-var level-III-index uint u1)
 
 ;; storage
 (define-map market uint {price: uint, commission: principal})

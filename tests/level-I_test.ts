@@ -8,7 +8,7 @@ Clarinet.test({
       const deployer = accounts.get("deployer")!;
       const wallet_4 = accounts.get("wallet_4")!;
         let block = chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         block.receipts[0].result.expectOk();
@@ -21,7 +21,7 @@ Clarinet.test({
       const deployer = accounts.get("deployer")!;
       const wallet_4 = accounts.get("wallet_4")!;
         let block = chain.mineBlock([
-          Tx.contractCall("level-I", "claim-two-level-Is", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-two-level-Is", [], wallet_4.address),
         ]);
 
         block.receipts[0].result.expectOk();
@@ -35,7 +35,7 @@ Clarinet.test({
       const wallet_4 = accounts.get("wallet_4")!;
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineEmptyBlock(1);
@@ -53,13 +53,13 @@ Clarinet.test({
       const wallet_4 = accounts.get("wallet_4")!;
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineEmptyBlockUntil(51254);
 
         let block = chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         block.receipts[0].result.expectOk();
@@ -73,13 +73,13 @@ Clarinet.test({
       const wallet_4 = accounts.get("wallet_4")!;
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineEmptyBlockUntil(51398);
 
         let block = chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         block.receipts[0].result.expectOk();

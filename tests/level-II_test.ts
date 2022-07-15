@@ -9,19 +9,19 @@ Clarinet.test({
       const wallet_4 = accounts.get("wallet_4")!;
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineEmptyBlock(1);
@@ -41,23 +41,23 @@ Clarinet.test({
       const wallet_4 = accounts.get("wallet_4")!;
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineBlock([
-          Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+          Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
         ]);
 
         chain.mineEmptyBlock(1);
@@ -77,23 +77,23 @@ Clarinet.test({
       const wallet_4 = accounts.get("wallet_4")!;
 
       chain.mineBlock([
-        Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+        Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
       ]);
 
       chain.mineBlock([
-        Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+        Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
       ]);
 
       chain.mineBlock([
-        Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+        Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
       ]);
 
       chain.mineBlock([
-        Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+        Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
       ]);
 
       chain.mineBlock([
-        Tx.contractCall("level-I", "level-I-claim", [], wallet_4.address),
+        Tx.contractCall("level-I", "mint-level-I", [], wallet_4.address),
       ]);
 
       chain.mineEmptyBlock(1);

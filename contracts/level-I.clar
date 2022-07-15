@@ -180,7 +180,7 @@
 ;;;;;;;;;;;;;;;;;;;;
 
 ;; @desc core level-I mint function - 3 batches with 3 different prices released after 2 block heights have been passed
-(define-public (level-I-claim)
+(define-public (mint-level-I)
   (let (
         (next-level-I-index (+ u1 (var-get level-I-index)))
       )
@@ -261,10 +261,10 @@
 ;;;;;;;;;;;;;;;;;;;;
 
 ;; @desc function to mint 2 l ms
-(define-public (claim-two-level-Is)
+(define-public (mint-two-level-Is)
   (begin
-    (try! (level-I-claim))
-    (ok (level-I-claim))
+    (try! (mint-level-I))
+    (ok (mint-level-I))
   )
 )
 

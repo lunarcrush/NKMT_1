@@ -14,7 +14,7 @@
 (define-non-fungible-token level-II uint)
 
 ;; constants
-(define-constant level-II-limit u6000)
+(define-constant level-II-limit u6001)
 (define-constant contract-owner tx-sender)
 
 ;; error messages
@@ -26,7 +26,7 @@
 
 ;; vars
 (define-data-var ipfs-root (string-ascii 102) "ipfs://ipfs/QmYcrELFT5c9pjSygFFXk8jfVMHB5cBoWJDGafbHbATvrP/pm_")
-(define-data-var level-II-index uint u0)
+(define-data-var level-II-index uint u1)
 (define-data-var level-II-subtype-index uint u0)
 
 ;; storage
@@ -166,6 +166,7 @@
     (unwrap-panic (contract-call? .level-I transfer level-I-id-4 tx-sender 'STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6))
     (unwrap! (some (map-insert sub-type (var-get level-II-index) (var-get level-II-subtype-index))) (err u1))
     (try! (nft-mint? level-II (var-get level-II-index) tx-sender))
+    (assign-next-subtype)
     (ok (var-set level-II-index next-level-II-index))
   )
 )
