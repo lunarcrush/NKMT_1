@@ -27,20 +27,18 @@
 ;; Claim STX ;;
 ;;;;;;;;;;;;;;;
 ;; @desc - function for claiming all STX currently held in treasure chest
-(define-public (claim-stx (id uint))
+(define-public (claim-stx)
   (begin
 
     ;; Check that tx-sender is chest-key
     (asserts! (is-eq tx-sender chest-key) ERR-NOT-AUTH)
 
-    ;; Check that tx-sender is owner of level III NFT (by id)
-    (asserts! (is-eq (some tx-sender) (unwrap! (contract-call? .level-III get-owner id) ERR-UNWRAPPING)) ERR-NOT-OWNER)
-
     ;; Check that contract stx balance is > 0
     (asserts! (> (stx-get-balance (as-contract tx-sender)) u0) ERR-CLAIM-EMPTY)
 
     ;; Send stx to chest-key
-    (ok (try! (stx-transfer? (stx-get-balance (as-contract tx-sender)) (as-contract tx-sender) chest-key)))
+    ;; might need to be wrapped (as-contract...)
+    (ok (as-contract (try! (stx-transfer? (stx-get-balance (as-contract tx-sender)) tx-sender chest-key))))
   )
 )
 
@@ -64,7 +62,8 @@
     (asserts! (> ft-balance u0) ERR-CLAIM-EMPTY)
 
     ;; Send ft to chest-key
-    (ok (try! (contract-call? treasure-ft transfer ft-balance (as-contract tx-sender) chest-key none)))
+    ;; might need to be wrapped (as-contract...)
+    (ok (as-contract (try! (contract-call? treasure-ft transfer ft-balance tx-sender chest-key none))))
   )
 )
 
@@ -85,6 +84,7 @@
     (asserts! (is-eq (some tx-sender) (unwrap! (contract-call? treasure-nft get-owner chest-key-id) ERR-UNWRAPPING)) ERR-NOT-OWNER)
 
     ;; Send ft to chest-key
-    (ok (try! (contract-call? treasure-nft transfer nft-id (as-contract tx-sender) chest-key)))
+    ;; might need to be wrapped (as-contract...)
+    (ok (as-contract (try! (contract-call? treasure-nft transfer nft-id tx-sender chest-key))))
   )
 )
