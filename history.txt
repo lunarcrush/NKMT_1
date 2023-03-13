@@ -49,3 +49,6 @@ clear
 (contract-call? .level-I level-I-claim)
 (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.level-I  level-I-claim)
 ::get_assets_maps
+exit
+quit
+exit;

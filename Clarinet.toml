@@ -1,40 +1,27 @@
 [project]
-name = "moon-project-v7"
+name = "nkmt_v1"
 authors = []
 description = ""
 telemetry = false
 requirements = []
-[contracts.admin]
-path = "contracts/admin.clar"
-depends_on = []
+boot_contracts = ["pox", "costs-v2", "bns"]
 
-[contracts.level-I]
-path = "contracts/level-I.clar"
-depends_on = ["sip-090-trait-nft-standard"]
+[project.cache_location]
+path = ".requirements"
+[contracts.level-i]
+path = "contracts/level-i.clar"
 
-[contracts.level-II]
-path = "contracts/level-II.clar"
-depends_on = ["sip-090-trait-nft-standard"]
+[contracts.level-ii]
+path = "contracts/level-ii.clar"
 
-[contracts.level-III]
-path = "contracts/level-III.clar"
-depends_on = ["sip-090-trait-nft-standard"]
+[contracts.level-iii]
+path = "contracts/level-iii.clar"
 
-[contracts.level-IV]
-path = "contracts/level-IV.clar"
-depends_on = []
+[contracts.level-iv]
+path = "contracts/level-iv.clar"
 
-[contracts.sip-010-trait-nft-standard]
-path = "contracts/sip-010-trait-nft-standard.clar"
-depends_on = []
-
-[contracts.sip-090-trait-nft-standard]
-path = "contracts/sip-090-trait-nft-standard.clar"
-depends_on = []
-
-[contracts.treasure-chest]
-path = "contracts/treasure-chest.clar"
-depends_on = ["sip-090-trait-nft-standard", "sip-010-trait-nft-standard"]
+[contracts.sip-09]
+path = "contracts/sip-09.clar"
 
 [repl]
 costs_version = 2
