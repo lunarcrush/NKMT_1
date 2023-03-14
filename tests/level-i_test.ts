@@ -195,3 +195,70 @@ Clarinet.test({
         assertEquals(mintBlock2.receipts[0].result, '(ok (some "https://nakamoto1.space/level_i/4.json"))');
     },
 });
+
+// takes a long time, only use to test if needed
+// Clarinet.test({
+//     name: "Cannot mint more than 24000",
+//     async fn(chain: Chain, accounts: Map<string, Account>) {
+
+
+//         let wallet_1 = accounts.get('wallet_1')!;
+//         let wallet_2 = accounts.get('wallet_2')!;
+
+//         for(let m = 0; m < 25002; m++) {
+//             if (m < 23954) {
+//                 chain.mineBlock([
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                     Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+//                 ]);
+//                 m+=58
+//             } else {
+//                 console.log('m is at', m, 'minting 1')
+//                 let z= chain.mineBlock([
+//                     Tx.contractCall("level-i", "public-mint-1-level-I", [], wallet_2.address),
+//                 ]);
+//                 console.log('call res', z.receipts)
+//                 m+=1
+//             }
+//         }
+
+//         let output = chain.mineBlock([
+//             Tx.contractCall("level-i", "get-token-uri", ['u0'], wallet_1.address),
+//             Tx.contractCall("level-i", "get-token-uri", ['u1'], wallet_1.address),
+//             Tx.contractCall("level-i", "get-token-uri", ['u2'], wallet_1.address),
+//             Tx.contractCall("level-i", "get-token-uri", ['u23999'], wallet_1.address),
+//             Tx.contractCall("level-i", "get-token-uri", ['u24000'], wallet_1.address),
+//             Tx.contractCall("level-i", "get-token-uri", ['u24001'], wallet_1.address),
+//         ]);
+//         console.log('output', output)
+//         console.log('balances', chain.getAssetsMaps())
+        
+//     },
+// });
