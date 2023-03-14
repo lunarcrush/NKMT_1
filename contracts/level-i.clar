@@ -27,9 +27,6 @@
 ;; Collection limit (24k)
 (define-constant level-I-limit u24001)
 
-;; Collection test price (.0255 STX)
-(define-constant level-I-test-price u25500000)
-
 ;; error messages
 (define-constant ERR-ALL-MINTED (err u101))
 (define-constant ERR-1ST-MINT-OUT (err u102))
@@ -68,7 +65,7 @@
 (define-data-var admin-to-remove principal tx-sender)
 
 ;; Mint price -> trying to keep parity w/ $250 USD 
-(define-data-var mint-price uint u100000000)
+(define-data-var mint-price uint u250000000)
 
 ;; level-I basics
 (define-data-var metadata-frozen bool true)
