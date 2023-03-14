@@ -1,2 +1,4 @@
 deployments
 .cache
+settings/Testnet.toml
+settings/Mainnet.toml
