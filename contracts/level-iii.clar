@@ -1,4 +1,4 @@
-;; Level-III NFT Contract
+;; Nakamoto_1 Level-III (android) NFT Contract
 ;; The 3rd Level NFT in LunarCrush experience
 ;; Written by the ClarityClear team
 

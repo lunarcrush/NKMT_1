@@ -60,7 +60,7 @@
 ;; Helper principal for removing an admin
 (define-data-var admin-to-remove principal tx-sender)
 
-;; Mint price -> trying to keep parity w/ $250 USD 
+;; Mint price -> trying to keep parity w/ $250 USD
 (define-data-var mint-price uint u250000000)
 
 ;; level-I basics

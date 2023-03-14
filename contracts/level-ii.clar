@@ -1,4 +1,4 @@
-;; Level-II NFT Contract
+;; Nakamoto_1 Level-II NFT Contract
 ;; The 2nd Level NFT in LunarCrush experience
 ;; Written by the ClarityClear team
 

@@ -1,4 +1,4 @@
-;; Level-IV NFT Contract
+;; Nakamoto_1 Level-IV (1 of 1) NFT Contract
 ;; The 4th Level NFT in LunarCrush experience
 ;; Written by the ClarityClear team
 
