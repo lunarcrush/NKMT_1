@@ -26,6 +26,35 @@ Clarinet.test({
     },
 });
 
+
+Clarinet.test({
+    name: "Cannot mint without 3 unique subtypes",
+    async fn(chain: Chain, accounts: Map<string, Account>) {
+
+        let deployer = accounts.get('deployer')!;
+        let wallet_1 = accounts.get('wallet_1')!;
+        let wallet_2 = accounts.get('wallet_2')!;
+        
+        let mintFirstBlock = chain.mineBlock([
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_2.address)
+        ]);
+        chain.mineEmptyBlock(1);
+
+        let mintSecondBlock = chain.mineBlock([
+            Tx.contractCall("level-ii", "mint-level-II", [types.uint(1), types.uint(2), types.uint(4), types.uint(5)], wallet_1.address),
+        ]);
+        mintSecondBlock.receipts[0].result.expectErr()
+        assertEquals(chain.getAssetsMaps().assets['.level-i.level-I'][wallet_1.address], 4);
+        assertEquals(chain.getAssetsMaps().assets['.level-i.level-I'][wallet_2.address], 6);
+        
+    },
+});
+
+
 Clarinet.test({
     name: "Level ii URI is correct",
     async fn(chain: Chain, accounts: Map<string, Account>) {
