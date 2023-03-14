@@ -1,9 +1,9 @@
-;; Level-I NFT Contract
+;; Nakamoto_1 Level-I NFT Contract
 ;; The 1st Level NFT in LunarCrush experience
 ;; Written by the StrataLabs team
 
 ;; Level-I NFT
-;; 24k collection total, each NFT has one of four sub-types (u1,u2,u3,u4) & is sold for 255 STX
+;; 24k collection total, each NFT has one of four sub-types (u1,u2,u3,u4) & is sold for ~$250 USD by updating price in STX to match the market value in USD
 ;; Each level-I NFT has one of four different "sub-types" (u1,u2,u3,u4). A user needs one of each sub-type to qualify for a level-II NFT
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -13,7 +13,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Check contract adheres to SIP-009
+;; mainnet
 ;; (impl-trait 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.nft-trait)
+;; testnet
+;; (impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
+;; devnet/local
 (impl-trait .sip-09.sip-09-trait)
 
 ;; Define level-I NFT
@@ -29,24 +33,16 @@
 
 ;; error messages
 (define-constant ERR-ALL-MINTED (err u101))
-(define-constant ERR-1ST-MINT-OUT (err u102))
-(define-constant ERR-2ND-MINT-OUT (err u103))
-(define-constant ERR-NOT-AUTH (err u104))
-(define-constant ERR-META-FRZN (err u105))
-(define-constant ERR-NOT-LISTED (err u106))
-(define-constant ERR-WRONG-COMMISSION (err u107))
-(define-constant ERR-STX-TRANSFER (err u108))
-(define-constant ERR-TOO-MANY (err u109))
-(define-constant ERR-WRONG-PRICING (err u110))
-(define-constant ERR-WRONG-HEIGHT (err u111))
-(define-constant ERR-LIMITS-WRNG-ORDER (err u112))
-(define-constant ERR-ADMIN-LIMIT (err u113))
-(define-constant ERR-LIST-OVERFLOW (err u114))
-(define-constant ERR-ALREADY-ADMIN (err u115))
-(define-constant ERR-NOT-ADMIN (err u116))
-(define-constant ERR-NFT-MINT (err u117))
-(define-constant ERR-NFT-MINT-MAP (err u118))
-(define-constant ERR-NFT-BURN (err u119))
+(define-constant ERR-NOT-AUTH (err u102))
+(define-constant ERR-NOT-LISTED (err u103))
+(define-constant ERR-WRONG-COMMISSION (err u104))
+(define-constant ERR-STX-TRANSFER (err u105))
+(define-constant ERR-LIST-OVERFLOW (err u106))
+(define-constant ERR-ALREADY-ADMIN (err u107))
+(define-constant ERR-NOT-ADMIN (err u108))
+(define-constant ERR-NFT-MINT (err u109))
+(define-constant ERR-NFT-MINT-MAP (err u110))
+(define-constant ERR-NFT-BURN (err u111))
 
 
 ;; storage
