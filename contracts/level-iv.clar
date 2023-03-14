@@ -32,7 +32,7 @@
 (define-constant ERR-LIST-ADMIN (err u106))
 
 ;; vars
-(define-data-var ipfs-root (string-ascii 102) "ipfs://ipfs/QmYcrELFT5c9pjSygFFXk8jfVMHB5cBoWJDGafbHbATvrP/pm_")
+(define-data-var uri-root (string-ascii 102) "https://nakamoto1.space/1of1")
 (define-data-var level-IV-index uint u1)
 
 ;; Admin list for minting
@@ -63,7 +63,7 @@
     (some
       (concat
         (concat
-          (var-get ipfs-root)
+          (var-get uri-root)
           (uint-to-ascii token-id)
         )
         ".json"

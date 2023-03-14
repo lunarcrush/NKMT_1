@@ -33,7 +33,7 @@
 (define-constant ERR-BURN-THIRD (err u108))
 
 ;; vars
-(define-data-var ipfs-root (string-ascii 102) "ipfs://ipfs/QmYcrELFT5c9pjSygFFXk8jfVMHB5cBoWJDGafbHbATvrP/pm_")
+(define-data-var uri-root (string-ascii 32) "https://nakamoto1.space/android/")
 (define-data-var level-III-index uint u1)
 
 ;; storage
@@ -58,7 +58,7 @@
     (some
       (concat
         (concat
-          (var-get ipfs-root)
+          (var-get uri-root)
           (uint-to-ascii token-id)
         )
         ".json"

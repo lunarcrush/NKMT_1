@@ -89,7 +89,7 @@ Clarinet.test({
         let readBlock = chain.mineBlock([
             Tx.contractCall("level-i", "get-admins", [], deployer.address),
         ]);
-        console.log("readBlock",readBlock)
+        
 
         // wallet_1 and wallet_2 are admins
         assertEquals(readBlock.receipts[0].result, `[${deployer.address}, ${wallet_2.address}]`);
@@ -170,5 +170,28 @@ Clarinet.test({
         balances = chain.getAssetsMaps()
         //console.log('balances', balances, 'balances_wallet_1', balances_wallet_1)
         assertEquals(chain.getAssetsMaps().assets.STX[deployer.address + '.level-i'], 350000000);
+    },
+});
+
+Clarinet.test({
+    name: "Level i URI is correct",
+    async fn(chain: Chain, accounts: Map<string, Account>) {
+
+
+        let wallet_1 = accounts.get('wallet_1')!;
+        let wallet_2 = accounts.get('wallet_2')!;
+
+        chain.mineBlock([
+            Tx.contractCall("level-i", "public-mint-1-level-I", [], wallet_2.address),
+            Tx.contractCall("level-i", "public-mint-1-level-I", [], wallet_2.address),
+            Tx.contractCall("level-i", "public-mint-1-level-I", [], wallet_2.address),
+            Tx.contractCall("level-i", "public-mint-1-level-I", [], wallet_2.address),
+            Tx.contractCall("level-i", "public-mint-1-level-I", [], wallet_2.address),
+        ]);
+        let mintBlock2 = chain.mineBlock([
+            Tx.contractCall("level-i", "get-token-uri ", ['u4'], wallet_1.address),
+        ]);
+        console.log('mintBlock2', mintBlock2.receipts[0].result)
+        assertEquals(mintBlock2.receipts[0].result, '(ok (some "https://nakamoto1.space/level_i/4.json"))');
     },
 });

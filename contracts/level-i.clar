@@ -69,7 +69,7 @@
 
 ;; level-I basics
 (define-data-var metadata-frozen bool true)
-(define-data-var ipfs-root (string-ascii 102) "ipfs://ipfs/QmYcrELFT5c9pjSygFFXk8jfVMHB5cBoWJDGaTvrP/")
+(define-data-var uri-root (string-ascii 79) "https://nakamoto1.space/level_i/")
 (define-data-var level-I-index uint u1)
 (define-data-var level-I-subtype-index uint u1)
 
@@ -105,7 +105,7 @@
     (some
       (concat
         (concat
-          (var-get ipfs-root)
+          (var-get uri-root)
           (uint-to-ascii token-id)
         )
         ".json"
