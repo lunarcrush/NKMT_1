@@ -13,8 +13,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Check contract adheres to SIP-009
+;; mainnet
 ;; (impl-trait 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.nft-trait)
-(impl-trait .sip-09.sip-09-trait)
+;; testnet
+(impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
+;; devnet/local
+;; (impl-trait .sip-09.sip-09-trait)
+
 
 ;; Define level-I NFT
 (define-non-fungible-token level-II uint)
