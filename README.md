@@ -19,8 +19,8 @@
     (id uint)
     (price uint)
     (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.level-i.commission-trait>))
-(public-mint-1-level-I)
-(public-mint-2-level-I)
+(Mint_Nakamoto_1_Level_1)
+(Mint_2_Nakamoto_1_Level_1)
 (remove-admin (removed-admin principal))
 (transfer
     (id uint)
@@ -43,7 +43,7 @@
 (burn (id uint))
 (buy-in-ustx
     (id uint)
-    (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.level-ii.commission-trait>))
+    (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGMNakamoto_1_Level_2.commission-trait>))
 (check-subtype (level-II-id uint))
 (get-last-token-id)
 (get-listing-in-ustx (id uint))
@@ -52,8 +52,8 @@
 (list-in-ustx
     (id uint)
     (price uint)
-    (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.level-ii.commission-trait>))
-(mint-level-II
+    (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGMNakamoto_1_Level_2.commission-trait>))
+(Mint_Nakamoto_1_Level_2
     (level-I-id-1 uint)
     (level-I-id-2 uint)
     (level-I-id-3 uint)
@@ -70,12 +70,12 @@
 
 ```
 
-## level-iii functions
+## Nakamoto_1_Android functions
 
 ```
 (buy-in-ustx
     (id uint)
-    (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.level-iii.commission-trait>))
+    (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGMMint_Nakamoto_1_Android.commission-trait>))
 (get-last-token-id)
 (get-listing-in-ustx (id uint))
 (get-owner (id uint))
@@ -83,8 +83,8 @@
 (list-in-ustx
     (id uint)
     (price uint)
-    (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.level-iii.commission-trait>))
-(mint-level-III
+    (comm-trait <ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGMMint_Nakamoto_1_Android.commission-trait>))
+(Mint_Nakamoto_1_Level_3
     (level-II-id-1 uint)
     (level-II-id-2 uint)
     (level-II-id-3 uint))

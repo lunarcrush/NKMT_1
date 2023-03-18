@@ -1,10 +1,9 @@
-;; SecretProject_1 Level-II NFT Contract
-;; The 2nd Level NFT in LunarCrush experience
-;; Written by the ClarityClear team
+;; Nakamoto_1 Level 2 NFT Contract
+;; Written by the StrataLabs team and LunarCrush
 
-;; Level-II NFT
-;; The level-II NFT has a collection limit of 6k. All 6k are derived from a tx-sender "burning" exactly 4 level-Is of different sub-types
-;; Each level-II NFT has a one of three different "sub-types" (u0,u1,u2). A user needs one of each sub-type to qualify for a level-III NFT
+;; Level 2 NFT
+;; The Nakamoto_1_Level_2 NFT has a collection limit of 6k. All 6k are derived from a tx-sender "burning" exactly 4 Nakamoto_1_Level_1s of different sub-types
+;; Each Nakamoto_1_Level_2 NFT has a one of three different "sub-types" (u0,u1,u2). A user needs one of each sub-type to qualify for a Nakamoto_1_Level_2I NFT
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -21,11 +20,11 @@
 (impl-trait .sip-09.sip-09-trait)
 
 
-;; Define level-I NFT
-(define-non-fungible-token level-II uint)
+;; Define Nakamoto_1_Level_1 NFT
+(define-non-fungible-token Nakamoto_1_Level_2 uint)
 
 ;; constants
-(define-constant level-II-limit u6001)
+(define-constant Nakamoto_1_Level_2-limit u6001)
 
 ;; error messages
 (define-constant ERR-ALL-MINTED (err u101))
@@ -37,13 +36,13 @@
 (define-constant ERR-BURN-SECOND (err u107))
 (define-constant ERR-BURN-THIRD (err u108))
 (define-constant ERR-BURN-FOURTH (err u109))
-(define-constant ERR-MINT-LEVEL-II (err u110))
+(define-constant ERR-Mint_Nakamoto_1_Level_2 (err u110))
 (define-constant ERR-NFT-BURN (err u110))
 
 ;; vars
-(define-data-var ipfs-root (string-ascii 33) "https://nakamoto1.space/level_ii/")
-(define-data-var level-II-index uint u1)
-(define-data-var level-II-subtype-index uint u1)
+(define-data-var ipfs-root (string-ascii 33) "https://nakamoto1.space/level_2/")
+(define-data-var Nakamoto_1_Level_2-index uint u1)
+(define-data-var Nakamoto_1_Level_2-subtype-index uint u1)
 
 ;; storage
 (define-map market uint {price: uint, commission: principal})
@@ -55,11 +54,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (define-read-only (get-last-token-id)
-  (ok (var-get level-II-index))
+  (ok (var-get Nakamoto_1_Level_2-index))
 )
 
 (define-read-only (get-owner (id uint))
-  (ok (nft-get-owner? level-II id))
+  (ok (nft-get-owner? Nakamoto_1_Level_2 id))
 )
 
 (define-read-only (get-token-uri (token-id uint))
@@ -79,7 +78,7 @@
 (define-public (transfer (id uint) (sender principal) (recipient principal))
   (begin
     (asserts! (is-eq tx-sender sender) ERR-NOT-AUTH)
-    (nft-transfer? level-II id sender recipient)
+    (nft-transfer? Nakamoto_1_Level_2 id sender recipient)
   )
 )
 
@@ -108,7 +107,7 @@
 (define-private (is-sender-owner (id uint))
   (let
     (
-      (owner (unwrap! (nft-get-owner? level-II id) false))
+      (owner (unwrap! (nft-get-owner? Nakamoto_1_Level_2 id) false))
     )
       (or (is-eq tx-sender owner) (is-eq contract-caller owner))
   )
@@ -142,14 +141,14 @@
 (define-public (buy-in-ustx (id uint) (comm-trait <commission-trait>))
   (let
     (
-      (owner (unwrap! (nft-get-owner? level-II id) ERR-NOT-AUTH))
+      (owner (unwrap! (nft-get-owner? Nakamoto_1_Level_2 id) ERR-NOT-AUTH))
       (listing (unwrap! (map-get? market id) ERR-NOT-LISTED))
       (price (get price listing))
     )
     (asserts! (is-eq (contract-of comm-trait) (get commission listing)) ERR-WRONG-COMMISSION)
     (try! (stx-transfer? price tx-sender owner))
     (try! (contract-call? comm-trait pay id price))
-    (try! (nft-transfer? level-II id owner tx-sender))
+    (try! (nft-transfer? Nakamoto_1_Level_2 id owner tx-sender))
     (map-delete market id)
     (ok (print {a: "buy-in-ustx", id: id}))
   )
@@ -162,49 +161,49 @@
 ;; Core Functions ;;
 ;;;;;;;;;;;;;;;;;;;;
 
-;; @desc core function for minting a level-II, four lunar-fragments are required as burns
-;; @param level-I-id-1: id of the 1/4 level-I burned, level-I-id-2: id of the 2/4 level-I burned, level-I-id-3: id of the 3/4 level-I burned, level-I-id-4: id of the 4/4 level-I burned
-(define-public (mint-level-II (level-I-id-1 uint) (level-I-id-2 uint) (level-I-id-3 uint) (level-I-id-4 uint))
+;; @desc core function for minting a Nakamoto_1_Level_2, four lunar-fragments are required as burns
+;; @param Nakamoto_1_Level_1-id-1: id of the 1/4 Nakamoto_1_Level_1 burned, Nakamoto_1_Level_1-id-2: id of the 2/4 Nakamoto_1_Level_1 burned, Nakamoto_1_Level_1-id-3: id of the 3/4 Nakamoto_1_Level_1 burned, Nakamoto_1_Level_1-id-4: id of the 4/4 Nakamoto_1_Level_1 burned
+(define-public (Mint_Nakamoto_1_Level_2 (Nakamoto_1_Level_1-id-1 uint) (Nakamoto_1_Level_1-id-2 uint) (Nakamoto_1_Level_1-id-3 uint) (Nakamoto_1_Level_1-id-4 uint))
   (let
     (
-      (current-level-II-index (var-get level-II-index))
-      (next-level-II-index (+ u1 current-level-II-index))
-      (current-level-II-subtype-index (var-get level-II-subtype-index))
-      (nft-1-subtype (default-to u10 (contract-call? .level-i check-subtype level-I-id-1)))
-      (nft-2-subtype (default-to u10 (contract-call? .level-i check-subtype level-I-id-2)))
-      (nft-3-subtype (default-to u10 (contract-call? .level-i check-subtype level-I-id-3)))
-      (nft-4-subtype (default-to u10 (contract-call? .level-i check-subtype level-I-id-4)))
+      (current-Nakamoto_1_Level_2-index (var-get Nakamoto_1_Level_2-index))
+      (next-Nakamoto_1_Level_2-index (+ u1 current-Nakamoto_1_Level_2-index))
+      (current-Nakamoto_1_Level_2-subtype-index (var-get Nakamoto_1_Level_2-subtype-index))
+      (nft-1-subtype (default-to u10 (contract-call? .Nakamoto_1_Level_1 check-subtype Nakamoto_1_Level_1-id-1)))
+      (nft-2-subtype (default-to u10 (contract-call? .Nakamoto_1_Level_1 check-subtype Nakamoto_1_Level_1-id-2)))
+      (nft-3-subtype (default-to u10 (contract-call? .Nakamoto_1_Level_1 check-subtype Nakamoto_1_Level_1-id-3)))
+      (nft-4-subtype (default-to u10 (contract-call? .Nakamoto_1_Level_1 check-subtype Nakamoto_1_Level_1-id-4)))
     )
 
-    ;; Assert that the level-II index is less than the limit
-    (asserts! (< (var-get level-II-index) level-II-limit) ERR-ALL-MINTED)
+    ;; Assert that the Nakamoto_1_Level_2 index is less than the limit
+    (asserts! (< (var-get Nakamoto_1_Level_2-index) Nakamoto_1_Level_2-limit) ERR-ALL-MINTED)
 
-    ;; Assert that all four level-I's have different subtypes using is-eq
+    ;; Assert that all four Nakamoto_1_Level_1's have different subtypes using is-eq
     (asserts! (and (is-eq nft-1-subtype u1) (is-eq nft-2-subtype u2) (is-eq nft-3-subtype u3) (is-eq nft-4-subtype u4)) ERR-INCORRECT-SUBTYPES)
 
-    ;; Burn level-I-id-1 NFT
-    (unwrap! (contract-call? .level-i burn level-I-id-1) ERR-BURN-FIRST)
+    ;; Burn Nakamoto_1_Level_1-id-1 NFT
+    (unwrap! (contract-call? .Nakamoto_1_Level_1 burn Nakamoto_1_Level_1-id-1) ERR-BURN-FIRST)
 
-    ;; Burn level-I-id-2 NFT
-    (unwrap! (contract-call? .level-i burn level-I-id-2) ERR-BURN-SECOND)
+    ;; Burn Nakamoto_1_Level_1-id-2 NFT
+    (unwrap! (contract-call? .Nakamoto_1_Level_1 burn Nakamoto_1_Level_1-id-2) ERR-BURN-SECOND)
 
-    ;; Burn level-I-id-3 NFT
-    (unwrap! (contract-call? .level-i burn level-I-id-3) ERR-BURN-THIRD)
+    ;; Burn Nakamoto_1_Level_1-id-3 NFT
+    (unwrap! (contract-call? .Nakamoto_1_Level_1 burn Nakamoto_1_Level_1-id-3) ERR-BURN-THIRD)
 
-    ;; Burn level-I-id-4 NFT
-    (unwrap! (contract-call? .level-i burn level-I-id-4) ERR-BURN-FOURTH)
+    ;; Burn Nakamoto_1_Level_1-id-4 NFT
+    (unwrap! (contract-call? .Nakamoto_1_Level_1 burn Nakamoto_1_Level_1-id-4) ERR-BURN-FOURTH)
     
-    ;; Insert the new level-II sub-type into the sub-type map
-    (map-insert sub-type current-level-II-index current-level-II-subtype-index)
+    ;; Insert the new Nakamoto_1_Level_2 sub-type into the sub-type map
+    (map-insert sub-type current-Nakamoto_1_Level_2-index current-Nakamoto_1_Level_2-subtype-index)
     
-    ;; Mint the level-II
-    (unwrap! (nft-mint? level-II current-level-II-index tx-sender) ERR-MINT-LEVEL-II)
+    ;; Mint the Nakamoto_1_Level_2
+    (unwrap! (nft-mint? Nakamoto_1_Level_2 current-Nakamoto_1_Level_2-index tx-sender) ERR-Mint_Nakamoto_1_Level_2)
 
     ;; Update to next sub-type
     (assign-next-subtype)
 
-    ;; Update level-II index
-    (ok (var-set level-II-index next-level-II-index))
+    ;; Update Nakamoto_1_Level_2 index
+    (ok (var-set Nakamoto_1_Level_2-index next-Nakamoto_1_Level_2-index))
   )
 )
 
@@ -212,39 +211,39 @@
 (define-private (assign-next-subtype)
   (let
     (
-      (current-subtype (var-get level-II-subtype-index))
+      (current-subtype (var-get Nakamoto_1_Level_2-subtype-index))
     )
       (if (is-eq current-subtype u1)
-          (var-set level-II-subtype-index u2)
+          (var-set Nakamoto_1_Level_2-subtype-index u2)
           (if (is-eq current-subtype u2)
-            (var-set level-II-subtype-index u3)
-            (var-set level-II-subtype-index u1)
+            (var-set Nakamoto_1_Level_2-subtype-index u3)
+            (var-set Nakamoto_1_Level_2-subtype-index u1)
           )
       )
  )
 )
 
-  ;; @desc sub-type helper function - helps assign sub-types of type 0,1,2 when minted
-  (define-read-only (check-subtype (level-II-id uint))
-      (map-get? sub-type level-II-id)
+  ;; @desc sub-type helper function - helps assign sub-types of type 1,2,3 when minted
+  (define-read-only (check-subtype (Nakamoto_1_Level_2-id uint))
+      (map-get? sub-type Nakamoto_1_Level_2-id)
   )
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Burn Function ;;
 ;;;;;;;;;;;;;;;;;;;
-;; @desc - burn function for Level-I NFTs
+;; @desc - burn function for Nakamoto_1_Level_1 NFTs
 ;; @param - id (uint): id of NFT to burn
 (define-public (burn (id uint))
     (let
         (
-            (owner (unwrap! (nft-get-owner? level-II id) ERR-NOT-AUTH))
+            (owner (unwrap! (nft-get-owner? Nakamoto_1_Level_2 id) ERR-NOT-AUTH))
         )
 
         ;; Assert tx-sender is owner of NFT
         (asserts! (is-eq tx-sender owner) ERR-NOT-AUTH)
 
         ;; Burn NFT
-        (ok (unwrap! (nft-burn? level-II id tx-sender) ERR-NFT-BURN))
+        (ok (unwrap! (nft-burn? Nakamoto_1_Level_2 id tx-sender) ERR-NFT-BURN))
 
     )
 )

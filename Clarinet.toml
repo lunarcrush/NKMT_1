@@ -1,5 +1,5 @@
 [project]
-name = "nkmt_v1"
+name = "Nakamoto_1"
 authors = []
 description = ""
 telemetry = false
@@ -8,17 +8,17 @@ boot_contracts = ["pox", "costs-v2", "bns"]
 
 [project.cache_location]
 path = ".requirements"
-[contracts.level-i]
-path = "contracts/level-i.clar"
+[contracts.Nakamoto_1_Level_1]
+path = "contracts/Nakamoto_1_Level_1.clar"
 
-[contracts.level-ii]
-path = "contracts/level-ii.clar"
+[contracts.Nakamoto_1_Level_2]
+path = "contracts/Nakamoto_1_Level_2.clar"
 
-[contracts.level-iii]
-path = "contracts/level-iii.clar"
+[contracts.Nakamoto_1_Android]
+path = "contracts/Nakamoto_1_Android.clar"
 
-[contracts.level-iv]
-path = "contracts/level-iv.clar"
+[contracts.Nakamoto_1_Gold_Android]
+path = "contracts/Nakamoto_1_Gold_Android.clar"
 
 [contracts.sip-09]
 path = "contracts/sip-09.clar"

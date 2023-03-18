@@ -1,10 +1,9 @@
-;; SecretProject_1 Level-III (android) NFT Contract
-;; The 3rd Level NFT in LunarCrush experience
-;; Written by the ClarityClear team
+;; Nakamoto_1 Gold Android (1 of 1) NFT Contract
+;; Written by the StrataLabs team and LunarCrush
 
-;; Level-III NFT
-;; The level-III NFT has a collection limit of 2k. All 6k are derived from a tx-sender "burning" exactly 3 level-IIs of different sub-types
-;; This is the final NFT required for a user to be "active" to claim the treasure stored on the moon
+;; Gold Android NFT
+;; The Nakamoto_1_Gold_Android NFT has a collection limit of one (1), therefore considered a 1/1
+;; This will be minted by the admin team & later sent to the moon-locked wallet/principal
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -18,28 +17,33 @@
 ;; testnet
 ;; (impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
 ;; devnet/local
-(impl-trait .sip-09.sip-09-trait)
+ (impl-trait .sip-09.sip-09-trait)
 
 
-;; Define level-I NFT
-(define-non-fungible-token level-III uint)
+;; Define Gold Android NFT
+(define-non-fungible-token Nakamoto_1_Gold_Android uint)
 
 ;; constants
-(define-constant level-III-limit u2001)
+(define-constant Nakamoto_1_Gold_Android-limit u2)
+(define-constant contract-owner tx-sender)
 
 ;; error messages
 (define-constant ERR-ALL-MINTED (err u101))
 (define-constant ERR-NOT-AUTH (err u102))
 (define-constant ERR-NOT-LISTED (err u103))
 (define-constant ERR-WRONG-COMMISSION (err u104))
-(define-constant ERR-INCORRECT-SUBTYPES (err u105))
-(define-constant ERR-BURN-FIRST (err u106))
-(define-constant ERR-BURN-SECOND (err u107))
-(define-constant ERR-BURN-THIRD (err u108))
+(define-constant ERR-ALREADY-ADMIN (err u105))
+(define-constant ERR-LIST-ADMIN (err u106))
 
 ;; vars
-(define-data-var uri-root (string-ascii 32) "https://nakamoto1.space/android/")
-(define-data-var level-III-index uint u1)
+(define-data-var uri-root (string-ascii 102) "https://nakamoto1.space/gold_android/")
+(define-data-var Nakamoto_1_Gold_Android-index uint u1)
+
+;; Admin list for minting
+(define-data-var admin-list (list 10 principal) (list tx-sender))
+
+;; Helper principal for removing an admin
+(define-data-var admin-to-remove principal tx-sender)
 
 ;; storage
 (define-map market uint {price: uint, commission: principal})
@@ -51,11 +55,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (define-read-only (get-last-token-id)
-  (ok (var-get level-III-index))
+  (ok (var-get Nakamoto_1_Gold_Android-index))
 )
 
 (define-read-only (get-owner (id uint))
-  (ok (nft-get-owner? level-III id))
+  (ok (nft-get-owner? Nakamoto_1_Gold_Android id))
 )
 
 (define-read-only (get-token-uri (token-id uint))
@@ -75,7 +79,7 @@
 (define-public (transfer (id uint) (sender principal) (recipient principal))
   (begin
     (asserts! (is-eq tx-sender sender) ERR-NOT-AUTH)
-    (nft-transfer? level-III id sender recipient)
+    (nft-transfer? Nakamoto_1_Gold_Android id sender recipient)
   )
 )
 
@@ -104,7 +108,7 @@
 (define-private (is-sender-owner (id uint))
   (let
     (
-      (owner (unwrap! (nft-get-owner? level-III id) false))
+      (owner (unwrap! (nft-get-owner? Nakamoto_1_Gold_Android id) false))
     )
       (or (is-eq tx-sender owner) (is-eq contract-caller owner))
   )
@@ -138,14 +142,14 @@
 (define-public (buy-in-ustx (id uint) (comm-trait <commission-trait>))
   (let
     (
-      (owner (unwrap! (nft-get-owner? level-III id) ERR-NOT-AUTH))
+      (owner (unwrap! (nft-get-owner? Nakamoto_1_Gold_Android id) ERR-NOT-AUTH))
       (listing (unwrap! (map-get? market id) ERR-NOT-LISTED))
       (price (get price listing))
     )
     (asserts! (is-eq (contract-of comm-trait) (get commission listing)) ERR-WRONG-COMMISSION)
     (try! (stx-transfer? price tx-sender owner))
     (try! (contract-call? comm-trait pay id price))
-    (try! (nft-transfer? level-III id owner tx-sender))
+    (try! (nft-transfer? Nakamoto_1_Gold_Android id owner tx-sender))
     (map-delete market id)
     (ok (print {a: "buy-in-ustx", id: id}))
   )
@@ -158,40 +162,25 @@
 ;; Core Functions ;;
 ;;;;;;;;;;;;;;;;;;;;
 
-;; @desc core function for minting a level-III, two partial-mapps are required as burns
-;; @param level-II-id-1: id of the 1/3 level-II burned, level-II-id-2: id of the 2/3 level-II burned...
-(define-public (mint-level-III (level-II-id-1 uint) (level-II-id-2 uint) (level-II-id-3 uint))
+;; @desc core function for minting the single Nakamoto_1_Gold_Android 1/1
+(define-public (mint-Nakamoto_1_Gold_Android)
   (let
     (
-      (current-level-III-index (var-get level-III-index))
-      (next-level-III-index (+ u1 (var-get level-III-index)))
-      (nft-1-subtype (default-to u6 (contract-call? .level-ii check-subtype level-II-id-1)))
-      (nft-2-subtype (default-to u6 (contract-call? .level-ii check-subtype level-II-id-2)))
-      (nft-3-subtype (default-to u6 (contract-call? .level-ii check-subtype level-II-id-3)))
+      (current-Nakamoto_1_Gold_Android-index (var-get Nakamoto_1_Gold_Android-index))
+      (next-Nakamoto_1_Gold_Android-index (+ u1 (var-get Nakamoto_1_Gold_Android-index)))
     )
 
-    ;; Assert that not all level-III have been minted
-    (asserts! (< (var-get level-III-index) level-III-limit) ERR-ALL-MINTED)
+    ;; Assert that not all Nakamoto_1_Gold_Android have been minted
+    (asserts! (< current-Nakamoto_1_Gold_Android-index Nakamoto_1_Gold_Android-limit) ERR-ALL-MINTED)
 
-    ;; Assert that subtypes are correct
-    ;;(asserts! (is-eq subtype-total u6) ERR-INCORRECT-SUBTYPES)
-    ;; Assert that sub-types are correct using And & is-eq
-    (asserts! (and (is-eq nft-1-subtype u1) (is-eq nft-2-subtype u2) (is-eq nft-3-subtype u3)) ERR-INCORRECT-SUBTYPES)
-
-    ;; Burn level-II-id-1
-    (unwrap! (contract-call? .level-ii burn level-II-id-1) ERR-BURN-FIRST)
-
-    ;; Burn level-II-id-2
-    (unwrap! (contract-call? .level-ii burn level-II-id-2) ERR-BURN-SECOND)
-
-    ;; Burn level-II-id-3
-    (unwrap! (contract-call? .level-ii burn level-II-id-3) ERR-BURN-THIRD)
+    ;; Assert that tx-sender is an admin using is-some & index-of
+    (asserts! (is-some (index-of (var-get admin-list) tx-sender)) ERR-NOT-AUTH)
     
-    ;; Mint level-III
-    (try! (nft-mint? level-III current-level-III-index tx-sender))
+    ;; Mint Nakamoto_1_Gold_Android
+    (try! (nft-mint? Nakamoto_1_Gold_Android current-Nakamoto_1_Gold_Android-index tx-sender))
 
-    ;; Update level-III-index
-    (ok (var-set level-III-index next-level-III-index))
+    ;; Update Nakamoto_1_Gold_Android-index
+    (ok (var-set Nakamoto_1_Gold_Android-index next-Nakamoto_1_Gold_Android-index))
   )
 )
 
@@ -220,5 +209,63 @@
       r: (unwrap-panic (as-max-len? (concat (unwrap-panic (element-at "0123456789" (mod (get v d) u10))) (get r d)) u39))
     }
     d
+  )
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;; Admin Functions ;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Add New Admin
+;; @desc function for admin to add new principal to admin list
+;; @param - new-admin(principal): new admin principal
+(define-public (add-admin (new-admin principal))
+  (let
+    (
+      (current-admin-list (var-get admin-list))
+    )
+    ;; asserts tx-sender is an admin using is-some & index-of
+    (asserts! (is-some (index-of current-admin-list tx-sender)) ERR-NOT-AUTH)
+
+    ;; asserts new admin is not already an admin
+    (asserts! (is-none (index-of current-admin-list new-admin)) ERR-ALREADY-ADMIN)
+
+    ;; update (var-set) admin list by appending current-admin-list with new-admin, using as-max-len to ensure max 10 admins
+    (ok (var-set admin-list (unwrap! (as-max-len? (append current-admin-list new-admin) u10) ERR-LIST-ADMIN)))
+  )
+)
+
+;; Remove New Admin
+;; @desc function for removing an admin principal from the admin list
+;; @param - new-admin(principal): new admin principal
+(define-public (remove-admin (removed-admin principal))
+  (let
+    (
+      (current-admin-list (var-get admin-list))
+    )
+    ;; asserts tx-sender is an admin using is-some & index-of
+    (asserts! (is-some (index-of current-admin-list tx-sender)) ERR-NOT-AUTH)
+
+    ;; asserts admin to remove is an admin
+    (asserts! (is-some (index-of current-admin-list removed-admin)) ERR-NOT-AUTH)
+
+    ;; Var-set helper-principal to removed-admin
+    (var-set admin-to-remove removed-admin)
+
+    ;; update (var-set) admin list by filtering out admin-to-remove using filter
+    (ok (var-set admin-list (filter filter-admin-principal current-admin-list)))
+
+  )
+)
+
+;; Private helper function to filter out admin-to-remove
+(define-private (filter-admin-principal (admin-principal principal))
+  (if (is-eq admin-principal (var-get admin-to-remove))
+    false
+    true
   )
 )

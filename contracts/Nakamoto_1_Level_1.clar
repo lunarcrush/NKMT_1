@@ -1,10 +1,9 @@
-;; SecretProject_1 Level-I NFT Contract
-;; The 1st Level NFT in LunarCrush experience
-;; Written by the StrataLabs team
+;; Nakamoto_1 Level 1 NFT Contract
+;; Written by the StrataLabs team and LunarCrush
 
-;; Level-I NFT
+;; Level 1 NFT
 ;; 24k collection total, each NFT has one of four sub-types (u1,u2,u3,u4) & is sold for ~$250 USD by updating price in STX to match the market value in USD
-;; Each level-I NFT has one of four different "sub-types" (u1,u2,u3,u4). A user needs one of each sub-type to qualify for a level-II NFT
+;; Each Nakamoto_1_Level_1 NFT has one of four different "sub-types" (u1,u2,u3,u4). A user needs one of each sub-type to qualify for a Nakamoto_1_Level_1I NFT
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -20,8 +19,8 @@
 ;; devnet/local
 (impl-trait .sip-09.sip-09-trait)
 
-;; Define level-I NFT
-(define-non-fungible-token level-I uint)
+;; Define Nakamoto_1_Level_1 NFT
+(define-non-fungible-token Nakamoto_1_Level_1 uint)
 
 
 ;;;;;;;;;;;;;;;
@@ -29,7 +28,7 @@
 ;;;;;;;;;;;;;;;
 
 ;; Collection limit (24k)
-(define-constant level-I-limit u24001)
+(define-constant Nakamoto_1_Level_1-limit u24001)
 
 ;; error messages
 (define-constant ERR-ALL-MINTED (err u101))
@@ -63,11 +62,11 @@
 ;; Mint price -> trying to keep parity w/ $250 USD
 (define-data-var mint-price uint u250000000)
 
-;; level-I basics
+;; Nakamoto_1_Level_1 basics
 (define-data-var metadata-frozen bool true)
-(define-data-var uri-root (string-ascii 79) "https://nakamoto1.space/level_i/")
-(define-data-var level-I-index uint u1)
-(define-data-var level-I-subtype-index uint u1)
+(define-data-var uri-root (string-ascii 79) "https://nakamoto1.space/level_1/")
+(define-data-var Nakamoto_1_Level_1-index uint u1)
+(define-data-var Nakamoto_1_Level_1-subtype-index uint u1)
 
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -80,8 +79,8 @@
 )
 
 ;; Get item sub-type
-(define-read-only (check-subtype (level-I-id uint))
-    (map-get? sub-type level-I-id)
+(define-read-only (check-subtype (Nakamoto_1_Level_1-id uint))
+    (map-get? sub-type Nakamoto_1_Level_1-id)
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -89,11 +88,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (define-read-only (get-last-token-id)
-  (ok (var-get level-I-index))
+  (ok (var-get Nakamoto_1_Level_1-index))
 )
 
 (define-read-only (get-owner (id uint))
-  (ok (nft-get-owner? level-I id))
+  (ok (nft-get-owner? Nakamoto_1_Level_1 id))
 )
 
 (define-read-only (get-token-uri (token-id uint))
@@ -113,7 +112,7 @@
 (define-public (transfer (id uint) (sender principal) (recipient principal))
   (begin
     (asserts! (is-eq tx-sender sender) ERR-NOT-AUTH)
-    (nft-transfer? level-I id sender recipient)
+    (nft-transfer? Nakamoto_1_Level_1 id sender recipient)
   )
 )
 
@@ -142,7 +141,7 @@
 (define-private (is-sender-owner (id uint))
   (let
     (
-      (owner (unwrap! (nft-get-owner? level-I id) false))
+      (owner (unwrap! (nft-get-owner? Nakamoto_1_Level_1 id) false))
     )
       (or (is-eq tx-sender owner) (is-eq contract-caller owner))
   )
@@ -176,14 +175,14 @@
 (define-public (buy-in-ustx (id uint) (comm-trait <commission-trait>))
   (let
     (
-      (owner (unwrap! (nft-get-owner? level-I id) ERR-NOT-AUTH))
+      (owner (unwrap! (nft-get-owner? Nakamoto_1_Level_1 id) ERR-NOT-AUTH))
       (listing (unwrap! (map-get? market id) ERR-NOT-LISTED))
       (price (get price listing))
     )
     (asserts! (is-eq (contract-of comm-trait) (get commission listing)) ERR-WRONG-COMMISSION)
     (try! (stx-transfer? price tx-sender owner))
     (try! (contract-call? comm-trait pay id price))
-    (try! (nft-transfer? level-I id owner tx-sender))
+    (try! (nft-transfer? Nakamoto_1_Level_1 id owner tx-sender))
     (map-delete market id)
     (ok (print {a: "buy-in-ustx", id: id}))
   )
@@ -202,42 +201,42 @@
 ;; Public Mints ;;
 ;;;;;;;;;;;;;;;;;;
 
-;; Mint x1 Level-I
-;; @desc - public mint for a single Level-I NFT
-(define-public (public-mint-1-level-I)
+;; Mint x1 Level 1
+;; @desc - public mint for a single Level 1 NFT
+(define-public (Mint_Nakamoto_1_Level_1)
   (let 
       ( 
-        (current-level-I-index (var-get level-I-index))
-        (next-level-I-index (+ u1 (var-get level-I-index)))
-        (current-level-I-subtype-index (var-get level-I-subtype-index))
+        (current-Nakamoto_1_Level_1-index (var-get Nakamoto_1_Level_1-index))
+        (next-Nakamoto_1_Level_1-index (+ u1 (var-get Nakamoto_1_Level_1-index)))
+        (current-Nakamoto_1_Level_1-subtype-index (var-get Nakamoto_1_Level_1-subtype-index))
       )
 
-      ;; checking for level-I-index against entire level-I collection (24k)
-      (asserts! (< current-level-I-index level-I-limit) ERR-ALL-MINTED)
+      ;; checking for Nakamoto_1_Level_1-index against entire Nakamoto_1_Level_1 collection (24k)
+      (asserts! (< current-Nakamoto_1_Level_1-index Nakamoto_1_Level_1-limit) ERR-ALL-MINTED)
     
-      ;; Charge the user level-I-price
+      ;; Charge the user Nakamoto_1_Level_1-price
       (unwrap! (stx-transfer? (var-get mint-price) tx-sender (as-contract tx-sender)) ERR-STX-TRANSFER)
 
-      ;; Mint 1 Level-I NFT
-      (unwrap! (nft-mint? level-I current-level-I-index tx-sender) ERR-NFT-MINT)
+      ;; Mint 1 Level 1 NFT
+      (unwrap! (nft-mint? Nakamoto_1_Level_1 current-Nakamoto_1_Level_1-index tx-sender) ERR-NFT-MINT)
 
       ;; Assign the next sub-type
-      (map-insert sub-type current-level-I-index current-level-I-subtype-index)
+      (map-insert sub-type current-Nakamoto_1_Level_1-index current-Nakamoto_1_Level_1-subtype-index)
 
-      ;; Increment the level-I-subtype-index
-      (var-set level-I-index next-level-I-index)
+      ;; Increment the Nakamoto_1_Level_1-subtype-index
+      (var-set Nakamoto_1_Level_1-index next-Nakamoto_1_Level_1-index)
 
-      ;; Increment the level-I-subtype-index
+      ;; Increment the Nakamoto_1_Level_1-subtype-index
       (ok (assign-next-subtype))
   )
 )
 
-;; Mint x2 Level-I
-;; @desc - public mint for two Level-I NFTs
-(define-public (public-mint-2-level-I)
+;; Mint x2 Level 1
+;; @desc - public mint for two Level 1 NFTs
+(define-public (Mint_2_Nakamoto_1_Level_1)
     (begin 
-        (try! (public-mint-1-level-I))
-        (ok (try! (public-mint-1-level-I)))
+        (try! (Mint_Nakamoto_1_Level_1))
+        (ok (try! (Mint_Nakamoto_1_Level_1)))
     )
 )
 
@@ -247,15 +246,15 @@
 ;;;;;;;;;;;;;;;;;
 
 ;; Admin Mint Public
-;; @desc - admin mint for up to 250 Level-I NFTs
+;; @desc - admin mint for up to 250 Level 1 NFTs
 ;; @param - mint-count (list 250 uint): empty list of up to 250 uints for minting many
 (define-public (admin-mint-public (mint-count (list 250 uint))) 
     (let
         (   
-            (current-level-I-index (var-get level-I-index))
-            (next-level-I-index (+ u1 (var-get level-I-index)))
-            (current-level-I-subtype-index (var-get level-I-subtype-index))
-            (mints-remaining (- level-I-limit (var-get level-I-index))) 
+            (current-Nakamoto_1_Level_1-index (var-get Nakamoto_1_Level_1-index))
+            (next-Nakamoto_1_Level_1-index (+ u1 (var-get Nakamoto_1_Level_1-index)))
+            (current-Nakamoto_1_Level_1-subtype-index (var-get Nakamoto_1_Level_1-subtype-index))
+            (mints-remaining (- Nakamoto_1_Level_1-limit (var-get Nakamoto_1_Level_1-index))) 
         )
 
         ;; Assert tx-sender is in admin-list using is-some & index-of
@@ -271,25 +270,25 @@
 )
 
 ;; Admin Mint Private Helper
-;; @desc - admin mint for a single Level-I NFT
+;; @desc - admin mint for a single Level 1 NFT
 (define-private (admin-mint-private-helper (id uint))
     (let
         (
-            (current-level-I-index (var-get level-I-index))
-            (next-level-I-index (+ u1 current-level-I-index))
-            (current-level-I-subtype-index (var-get level-I-subtype-index))
+            (current-Nakamoto_1_Level_1-index (var-get Nakamoto_1_Level_1-index))
+            (next-Nakamoto_1_Level_1-index (+ u1 current-Nakamoto_1_Level_1-index))
+            (current-Nakamoto_1_Level_1-subtype-index (var-get Nakamoto_1_Level_1-subtype-index))
         )
 
         ;; Mint NFT
-        (unwrap! (nft-mint? level-I current-level-I-index tx-sender) ERR-NFT-MINT-MAP)
+        (unwrap! (nft-mint? Nakamoto_1_Level_1 current-Nakamoto_1_Level_1-index tx-sender) ERR-NFT-MINT-MAP)
 
-        ;; Update level-I-index
-        (var-set level-I-index next-level-I-index)
+        ;; Update Nakamoto_1_Level_1-index
+        (var-set Nakamoto_1_Level_1-index next-Nakamoto_1_Level_1-index)
 
         ;; Assign sub-type
-        (map-insert sub-type current-level-I-index current-level-I-subtype-index)
+        (map-insert sub-type current-Nakamoto_1_Level_1-index current-Nakamoto_1_Level_1-subtype-index)
 
-        ;; Update level-I-subtype-index
+        ;; Update Nakamoto_1_Level_1-subtype-index
         (ok (assign-next-subtype))
 
     )
@@ -298,19 +297,19 @@
 ;;;;;;;;;;;;;;;;;;;
 ;; Burn Function ;;
 ;;;;;;;;;;;;;;;;;;;
-;; @desc - burn function for Level-I NFTs
+;; @desc - burn function for Level 1 NFTs
 ;; @param - id (uint): id of NFT to burn
 (define-public (burn (id uint))
     (let
         (
-            (owner (unwrap! (nft-get-owner? level-I id) ERR-NOT-AUTH))
+            (owner (unwrap! (nft-get-owner? Nakamoto_1_Level_1 id) ERR-NOT-AUTH))
         )
 
         ;; Assert tx-sender is owner of NFT
         (asserts! (is-eq tx-sender owner) ERR-NOT-AUTH)
 
         ;; Burn NFT
-        (ok (unwrap! (nft-burn? level-I id tx-sender) ERR-NFT-BURN))
+        (ok (unwrap! (nft-burn? Nakamoto_1_Level_1 id tx-sender) ERR-NFT-BURN))
 
     )
 )
@@ -323,15 +322,15 @@
 (define-private (assign-next-subtype)
   (let
     (
-      (current-subtype (var-get level-I-subtype-index))
+      (current-subtype (var-get Nakamoto_1_Level_1-subtype-index))
     )
       (if (is-eq current-subtype u1)
-          (var-set level-I-subtype-index u2)
+          (var-set Nakamoto_1_Level_1-subtype-index u2)
           (if (is-eq current-subtype u2)
-            (var-set level-I-subtype-index u3)
+            (var-set Nakamoto_1_Level_1-subtype-index u3)
             (if (is-eq current-subtype u3)
-              (var-set level-I-subtype-index u4)
-              (var-set level-I-subtype-index u1)
+              (var-set Nakamoto_1_Level_1-subtype-index u4)
+              (var-set Nakamoto_1_Level_1-subtype-index u1)
             )
           )
       )
