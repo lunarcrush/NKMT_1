@@ -1,4 +1,4 @@
-;; Nakamoto_1 Level-II NFT Contract
+;; SecretProject_1 Level-II NFT Contract
 ;; The 2nd Level NFT in LunarCrush experience
 ;; Written by the ClarityClear team
 
@@ -16,9 +16,9 @@
 ;; mainnet
 ;; (impl-trait 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.nft-trait)
 ;; testnet
-(impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
+;; (impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
 ;; devnet/local
-;; (impl-trait .sip-09.sip-09-trait)
+(impl-trait .sip-09.sip-09-trait)
 
 
 ;; Define level-I NFT
@@ -218,7 +218,7 @@
           (var-set level-II-subtype-index u2)
           (if (is-eq current-subtype u2)
             (var-set level-II-subtype-index u3)
-            (var-set level-II-subtype-index u0)
+            (var-set level-II-subtype-index u1)
           )
       )
  )

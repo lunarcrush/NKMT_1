@@ -56,6 +56,58 @@ Clarinet.test({
 
 
 Clarinet.test({
+    name: "Level II subtypes are in order",
+    async fn(chain: Chain, accounts: Map<string, Account>) {
+
+        let deployer = accounts.get('deployer')!;
+        let wallet_1 = accounts.get('wallet_1')!;
+        let wallet_2 = accounts.get('wallet_2')!;
+        
+        let mintFirstBlock = chain.mineBlock([
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+            Tx.contractCall("level-i", "public-mint-2-level-I", [], wallet_1.address),
+        ]);
+        chain.mineEmptyBlock(1);
+
+        let mintSecondBlock = chain.mineBlock([
+            Tx.contractCall("level-ii", "mint-level-II", [types.uint(1), types.uint(2), types.uint(3), types.uint(4)], wallet_1.address),
+            Tx.contractCall("level-ii", "mint-level-II", [types.uint(5), types.uint(6), types.uint(7), types.uint(8)], wallet_1.address),
+            Tx.contractCall("level-ii", "mint-level-II", [types.uint(9), types.uint(10), types.uint(11), types.uint(12)], wallet_1.address),
+            Tx.contractCall("level-ii", "mint-level-II", [types.uint(13), types.uint(14), types.uint(15), types.uint(16)], wallet_1.address),
+            Tx.contractCall("level-ii", "mint-level-II", [types.uint(17), types.uint(18), types.uint(19), types.uint(20)], wallet_1.address),
+            Tx.contractCall("level-ii", "mint-level-II", [types.uint(21), types.uint(22), types.uint(23), types.uint(24)], wallet_1.address),
+        ]);
+        let checkTypes = chain.mineBlock([
+            Tx.contractCall("level-ii", "check-subtype", [types.uint(1)], wallet_1.address),
+            Tx.contractCall("level-ii", "check-subtype", [types.uint(2)], wallet_1.address),
+            Tx.contractCall("level-ii", "check-subtype", [types.uint(3)], wallet_1.address),
+            Tx.contractCall("level-ii", "check-subtype", [types.uint(4)], wallet_1.address),
+            Tx.contractCall("level-ii", "check-subtype", [types.uint(5)], wallet_1.address),
+            Tx.contractCall("level-ii", "check-subtype", [types.uint(6)], wallet_1.address),
+        ]);
+        console.log('checkTypes', checkTypes)
+        // assertEquals(chain.getAssetsMaps().assets['.level-i.level-I'][wallet_1.address], 4);
+        // assertEquals(chain.getAssetsMaps().assets['.level-i.level-I'][wallet_2.address], 6);
+        
+    },
+});
+
+
+Clarinet.test({
     name: "Level ii URI is correct",
     async fn(chain: Chain, accounts: Map<string, Account>) {
 
