@@ -3,7 +3,7 @@
 
 ;; Level 1 NFT
 ;; 24k collection total, each NFT has one of four sub-types (u1,u2,u3,u4) & is sold for ~$250 USD by updating price in STX to match the market value in USD
-;; Each Nakamoto_1_Level_1 NFT has one of four different "sub-types" (u1,u2,u3,u4). A user needs one of each sub-type to qualify for a Nakamoto_1_Level_1I NFT
+;; Each Nakamoto_1_Level_1 NFT has one of four different "sub-types" (u1,u2,u3,u4). A user needs one of each sub-type to qualify for a Nakamoto_1_Level_2 NFT
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
