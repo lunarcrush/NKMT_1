@@ -3,7 +3,7 @@
 
 ;; Level 2 NFT
 ;; The Nakamoto_1_Level_2 NFT has a collection limit of 6k. All 6k are derived from a tx-sender "burning" exactly 4 Nakamoto_1_Level_1s of different sub-types
-;; Each Nakamoto_1_Level_2 NFT has a one of three different "sub-types" (u0,u1,u2). A user needs one of each sub-type to qualify for a Nakamoto_1_Level_2I NFT
+;; Each Nakamoto_1_Level_2 NFT has a one of three different "sub-types" (u0,u1,u2). A user needs one of each sub-type to qualify for a Nakamoto_1_Level_2 NFT
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
