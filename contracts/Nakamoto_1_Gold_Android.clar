@@ -15,9 +15,9 @@
 ;; mainnet
 ;; (impl-trait 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.nft-trait)
 ;; testnet
-;; (impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
+(impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
 ;; devnet/local
- (impl-trait .sip-09.sip-09-trait)
+;; (impl-trait .sip-09.sip-09-trait)
 
 
 ;; Define Gold Android NFT
@@ -163,7 +163,7 @@
 ;;;;;;;;;;;;;;;;;;;;
 
 ;; @desc core function for minting the single Nakamoto_1_Gold_Android 1/1
-(define-public (mint-Nakamoto_1_Gold_Android)
+(define-public (Mint_Nakamoto_1_Gold_Android)
   (let
     (
       (current-Nakamoto_1_Gold_Android-index (var-get Nakamoto_1_Gold_Android-index))
