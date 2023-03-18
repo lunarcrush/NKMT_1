@@ -8,6 +8,7 @@ boot_contracts = ["pox", "costs-v2", "bns"]
 
 [project.cache_location]
 path = ".requirements"
+
 [contracts.Nakamoto_1_Level_1]
 path = "contracts/Nakamoto_1_Level_1.clar"
 

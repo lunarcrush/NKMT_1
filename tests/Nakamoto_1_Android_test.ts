@@ -41,8 +41,8 @@ Clarinet.test({
         ]);
 
         let mintThirdBlock = chain.mineBlock([
-            Tx.contractCall("Nakamoto_1_Android", "Mint_Nakamoto_1_Level_3", [types.uint(1), types.uint(2), types.uint(3)], wallet_1.address),
-            Tx.contractCall("Nakamoto_1_Android", "Mint_Nakamoto_1_Level_3", [types.uint(4), types.uint(5), types.uint(6)], wallet_1.address),
+            Tx.contractCall("Nakamoto_1_Android", "Mint_Nakamoto_1_Android", [types.uint(1), types.uint(2), types.uint(3)], wallet_1.address),
+            Tx.contractCall("Nakamoto_1_Android", "Mint_Nakamoto_1_Android", [types.uint(4), types.uint(5), types.uint(6)], wallet_1.address),
         ]);
 
         let mintBlock2 = chain.mineBlock([

@@ -164,9 +164,9 @@
     (
       (current-Nakamoto_1_Android-index (var-get Nakamoto_1_Android-index))
       (next-Nakamoto_1_Android-index (+ u1 (var-get Nakamoto_1_Android-index)))
-      (nft-1-subtype (default-to u6 (contract-call? Nakamoto_1_Level_2 check-subtype Nakamoto_1_Level_2-id-1)))
-      (nft-2-subtype (default-to u6 (contract-call? Nakamoto_1_Level_2 check-subtype Nakamoto_1_Level_2-id-2)))
-      (nft-3-subtype (default-to u6 (contract-call? Nakamoto_1_Level_2 check-subtype Nakamoto_1_Level_2-id-3)))
+      (nft-1-subtype (default-to u6 (contract-call? .Nakamoto_1_Level_2 check-subtype Nakamoto_1_Level_2-id-1)))
+      (nft-2-subtype (default-to u6 (contract-call? .Nakamoto_1_Level_2 check-subtype Nakamoto_1_Level_2-id-2)))
+      (nft-3-subtype (default-to u6 (contract-call? .Nakamoto_1_Level_2 check-subtype Nakamoto_1_Level_2-id-3)))
     )
 
     ;; Assert that not all Nakamoto_1_Android have been minted
@@ -178,13 +178,13 @@
     (asserts! (and (is-eq nft-1-subtype u1) (is-eq nft-2-subtype u2) (is-eq nft-3-subtype u3)) ERR-INCORRECT-SUBTYPES)
 
     ;; Burn Nakamoto_1_Level_2-id-1
-    (unwrap! (contract-call? Nakamoto_1_Level_2 burn Nakamoto_1_Level_2-id-1) ERR-BURN-FIRST)
+    (unwrap! (contract-call? .Nakamoto_1_Level_2 burn Nakamoto_1_Level_2-id-1) ERR-BURN-FIRST)
 
     ;; Burn Nakamoto_1_Level_2-id-2
-    (unwrap! (contract-call? Nakamoto_1_Level_2 burn Nakamoto_1_Level_2-id-2) ERR-BURN-SECOND)
+    (unwrap! (contract-call? .Nakamoto_1_Level_2 burn Nakamoto_1_Level_2-id-2) ERR-BURN-SECOND)
 
     ;; Burn Nakamoto_1_Level_2-id-3
-    (unwrap! (contract-call? Nakamoto_1_Level_2 burn Nakamoto_1_Level_2-id-3) ERR-BURN-THIRD)
+    (unwrap! (contract-call? .Nakamoto_1_Level_2 burn Nakamoto_1_Level_2-id-3) ERR-BURN-THIRD)
     
     ;; Mint Nakamoto_1_Android
     (try! (nft-mint? Nakamoto_1_Android current-Nakamoto_1_Android-index tx-sender))

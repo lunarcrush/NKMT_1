@@ -192,7 +192,7 @@ Clarinet.test({
             Tx.contractCall("Nakamoto_1_Level_1", "get-token-uri ", ['u4'], wallet_1.address),
         ]);
         console.log('mintBlock2', mintBlock2.receipts[0].result)
-        assertEquals(mintBlock2.receipts[0].result, '(ok (some "https://nakamoto1.space/level_i/4.json"))');
+        assertEquals(mintBlock2.receipts[0].result, '(ok (some "https://nakamoto1.space/level_1/4.json"))');
     },
 });
 

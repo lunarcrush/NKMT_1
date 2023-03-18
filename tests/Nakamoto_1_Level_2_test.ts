@@ -3,7 +3,7 @@ import { Clarinet, Tx, Chain, Account, types } from 'https://deno.land/x/clarine
 import { assertEquals } from 'https://deno.land/std@0.170.0/testing/asserts.ts';
 
 Clarinet.test({
-    name: "Mint 1 Level II",
+    name: "Mint 1 Level 2",
     async fn(chain: Chain, accounts: Map<string, Account>) {
 
         let deployer = accounts.get('deployer')!;
@@ -15,13 +15,14 @@ Clarinet.test({
         ]);
         chain.mineEmptyBlock(1);
         mintFirstBlock.receipts[0].result.expectOk();
+        console.log("maps", chain.getAssetsMaps())
         assertEquals(chain.getAssetsMaps().assets['.Nakamoto_1_Level_1.Nakamoto_1_Level_1'][deployer.address], 4);
 
         let mintSecondBlock = chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_2", "Mint_Nakamoto_1_Level_2", [types.uint(1), types.uint(2), types.uint(3), types.uint(4)], deployer.address),
         ]);
         mintSecondBlock.receipts[0].result.expectOk();
-        assertEquals(chain.getAssetsMaps().assets['Nakamoto_1_Level_2Nakamoto_1_Level_2'][deployer.address], 1);
+        assertEquals(chain.getAssetsMaps().assets['.Nakamoto_1_Level_2.Nakamoto_1_Level_2'][deployer.address], 1);
         
     },
 });
@@ -132,6 +133,6 @@ Clarinet.test({
             Tx.contractCall("Nakamoto_1_Level_2", "get-token-uri ", ['u1'], wallet_1.address),
         ]);
         console.log('mintBlock2', mintBlock2.receipts[0].result)
-        assertEquals(mintBlock2.receipts[0].result, '(ok (some "https://nakamoto1.space/level_ii/1.json"))');
+        assertEquals(mintBlock2.receipts[0].result, '(ok (some "https://nakamoto1.space/level_2/1.json"))');
     },
 });
