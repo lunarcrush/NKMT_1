@@ -15,9 +15,9 @@
 ;; mainnet
 ;; (impl-trait 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.nft-trait)
 ;; testnet
-(impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
+;; (impl-trait 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait.nft-trait)
 ;; devnet/local
-;; (impl-trait .sip-09.sip-09-trait)
+(impl-trait .sip-09.sip-09-trait)
 
 ;; Define Nakamoto_1_Level_1 NFT
 (define-non-fungible-token Nakamoto_1_Level_1 uint)
@@ -80,7 +80,12 @@
 
 ;; Get item sub-type
 (define-read-only (check-subtype (Nakamoto_1_Level_1-id uint))
-    (map-get? sub-type Nakamoto_1_Level_1-id)
+  (map-get? sub-type Nakamoto_1_Level_1-id)
+)
+
+;; Get mint price
+(define-read-only (check-mint-price)
+  (var-get mint-price)
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;

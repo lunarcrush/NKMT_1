@@ -163,6 +163,10 @@ Clarinet.test({
         let mintBlock2 = chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_1", "update-mint-price", ['u100000000'], deployer.address),
         ]);
+        let getMintPrice = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_1", "check-mint-price", [], deployer.address),
+        ]);
+        console.log('getMintPrice', getMintPrice)
 
         chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_Nakamoto_1_Level_1", [], deployer.address),
