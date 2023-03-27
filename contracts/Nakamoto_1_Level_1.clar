@@ -84,7 +84,7 @@
 )
 
 ;; Get mint price
-(define-read-only (check-mint-price)
+(define-read-only (get-mint-price)
   (var-get mint-price)
 )
 
