@@ -1,1 +1,16 @@
-
+#V2
+(call ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.Nakamoto_1_Level_1 check-mint-price [])
+(call ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.Nakamoto_1_Level_1 "check-mint-price" [])
+::help
+get_assets_maps
+(call get_assets_maps)
+::(call )
+(call ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.Nakamoto_1_Level_1 "check-mint-price" [])
+(contract-call? .ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.Nakamoto_1_Level_1 "check-mint-price" [])
+(contract-call? .Nakamoto_1_Level_1 "check-mint-price" [])
+(contract-call? .Nakamoto_1_Level_1 "check-mint-price" )
+(contract-call? .Nakamoto_1_Level_1 check-mint-price )
+(contract-call? .Nakamoto_1_Level_1 check-mint-price)
+(contract-call? .Nakamoto_1_Level_1 update-mint-price u69000000)
+(contract-call? .Nakamoto_1_Level_1 check-mint-price)
+(contract-call? .Nakamoto_1_Level_1 get-mint-price)

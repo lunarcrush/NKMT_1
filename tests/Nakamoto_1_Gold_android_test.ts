@@ -3,24 +3,25 @@ import { Clarinet, Tx, Chain, Account, types } from 'https://deno.land/x/clarine
 import { assertEquals } from 'https://deno.land/std@0.170.0/testing/asserts.ts';
 
 Clarinet.test({
-    name: "Ensure that <...>",
+    name: "Admin can mint a gold android",
     async fn(chain: Chain, accounts: Map<string, Account>) {
-        let block = chain.mineBlock([
-            /* 
-             * Add transactions with: 
-             * Tx.contractCall(...)
-            */
-        ]);
-        assertEquals(block.receipts.length, 0);
-        assertEquals(block.height, 2);
 
-        block = chain.mineBlock([
-            /* 
-             * Add transactions with: 
-             * Tx.contractCall(...)
-            */
+        let deployer = accounts.get('deployer')!;
+        let wallet_1 = accounts.get('wallet_1')!;
+        
+        let mintFirstBlock = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Gold_Android", "Mint_Nakamoto_1_Gold_Android", [], deployer.address),
         ]);
-        assertEquals(block.receipts.length, 0);
-        assertEquals(block.height, 3);
+        chain.mineEmptyBlock(1);
+        mintFirstBlock.receipts[0].result.expectOk();
+
+        let mintFirstBlock2 = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Gold_Android", "Mint_Nakamoto_1_Gold_Android", [], wallet_1.address),
+        ]);
+        chain.mineEmptyBlock(1);
+        mintFirstBlock2.receipts[0].result.expectErr();
+
+        console.log("maps", chain.getAssetsMaps())
+        
     },
 });

@@ -57,6 +57,30 @@ Clarinet.test({
 
 
 Clarinet.test({
+    name: "Cannot mint unless they are all your nfts",
+    async fn(chain: Chain, accounts: Map<string, Account>) {
+
+        let deployer = accounts.get('deployer')!;
+        let wallet_1 = accounts.get('wallet_1')!;
+        let wallet_2 = accounts.get('wallet_2')!;
+        
+        let mintFirstBlock = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_1.address),
+            Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_2.address),
+            Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_1.address),
+            Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_2.address),
+            Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_2.address)
+        ]);
+        chain.mineEmptyBlock(1);
+        let mintSecondBlock = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_2", "Mint_Nakamoto_1_Level_2", [types.uint(1), types.uint(2), types.uint(3), types.uint(4)], wallet_1.address),
+        ]);
+        mintSecondBlock.receipts[0].result.expectErr()
+    },
+});
+
+
+Clarinet.test({
     name: "Level II subtypes are in order",
     async fn(chain: Chain, accounts: Map<string, Account>) {
 
