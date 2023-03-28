@@ -40,7 +40,7 @@
 (define-constant ERR-NFT-BURN (err u110))
 
 ;; vars
-(define-data-var ipfs-root (string-ascii 33) "https://nakamoto1.space/level_2/")
+(define-data-var ipfs-root (string-ascii 32) "https://nakamoto1.space/level_2/")
 (define-data-var Nakamoto_1_Level_2-index uint u1)
 (define-data-var Nakamoto_1_Level_2-subtype-index uint u1)
 

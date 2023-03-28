@@ -14,3 +14,11 @@ get_assets_maps
 (contract-call? .Nakamoto_1_Level_1 update-mint-price u69000000)
 (contract-call? .Nakamoto_1_Level_1 check-mint-price)
 (contract-call? .Nakamoto_1_Level_1 get-mint-price)
+::help
+::help functions
+::functions
+::(contract-call? (get-minting-paused))
+(contract-call? .Nakamoto_1_Level_1 get-minting-paused)
+(contract-call? .Nakamoto_1_Level_1 updatet-minting-paused false)
+(contract-call? .Nakamoto_1_Level_1 update-minting-paused false)
+(contract-call? .Nakamoto_1_Level_1 get-minting-paused)

@@ -8,7 +8,11 @@ Clarinet.test({
 
         let deployer = accounts.get('deployer')!;
         let wallet_1 = accounts.get('wallet_1')!;
-        
+        let initial_unpause = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_1", "update-minting-paused", [types.bool(false)], deployer.address),
+        ]);
+        initial_unpause.receipts[0].result.expectOk();
+
         let mintFirstBlock = chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], deployer.address),
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], deployer.address)
@@ -35,7 +39,11 @@ Clarinet.test({
         let deployer = accounts.get('deployer')!;
         let wallet_1 = accounts.get('wallet_1')!;
         let wallet_2 = accounts.get('wallet_2')!;
-        
+        let initial_unpause = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_1", "update-minting-paused", [types.bool(false)], deployer.address),
+        ]);
+        initial_unpause.receipts[0].result.expectOk();
+
         let mintFirstBlock = chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_1.address),
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_2.address),
@@ -63,7 +71,11 @@ Clarinet.test({
         let deployer = accounts.get('deployer')!;
         let wallet_1 = accounts.get('wallet_1')!;
         let wallet_2 = accounts.get('wallet_2')!;
-        
+        let initial_unpause = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_1", "update-minting-paused", [types.bool(false)], deployer.address),
+        ]);
+        initial_unpause.receipts[0].result.expectOk();
+
         let mintFirstBlock = chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_1.address),
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_2.address),
@@ -87,7 +99,11 @@ Clarinet.test({
         let deployer = accounts.get('deployer')!;
         let wallet_1 = accounts.get('wallet_1')!;
         let wallet_2 = accounts.get('wallet_2')!;
-        
+        let initial_unpause = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_1", "update-minting-paused", [types.bool(false)], deployer.address),
+        ]);
+        initial_unpause.receipts[0].result.expectOk();
+
         let mintFirstBlock = chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_1.address),
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_1.address),
@@ -133,12 +149,17 @@ Clarinet.test({
 
 
 Clarinet.test({
-    name: "Level ii URI is correct",
+    name: "Level 2 URI is correct",
     async fn(chain: Chain, accounts: Map<string, Account>) {
 
 
+        let deployer = accounts.get('deployer')!;
         let wallet_1 = accounts.get('wallet_1')!;
         let wallet_2 = accounts.get('wallet_2')!;
+        let initial_unpause = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_1", "update-minting-paused", [types.bool(false)], deployer.address),
+        ]);
+        initial_unpause.receipts[0].result.expectOk();
 
         let mintFirstBlock = chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_1.address),

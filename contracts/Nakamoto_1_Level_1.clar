@@ -42,6 +42,7 @@
 (define-constant ERR-NFT-MINT (err u109))
 (define-constant ERR-NFT-MINT-MAP (err u110))
 (define-constant ERR-NFT-BURN (err u111))
+(define-constant ERR-MINTING-PAUSED (err u112))
 
 
 ;; storage
@@ -63,8 +64,8 @@
 (define-data-var mint-price uint u250000000)
 
 ;; Nakamoto_1_Level_1 basics
-(define-data-var metadata-frozen bool true)
-(define-data-var uri-root (string-ascii 79) "https://nakamoto1.space/level_1/")
+(define-data-var minting-paused bool true)
+(define-data-var uri-root (string-ascii 32) "https://nakamoto1.space/level_1/")
 (define-data-var Nakamoto_1_Level_1-index uint u1)
 (define-data-var Nakamoto_1_Level_1-subtype-index uint u1)
 
@@ -86,6 +87,11 @@
 ;; Get mint price
 (define-read-only (get-mint-price)
   (var-get mint-price)
+)
+
+;; Get is minting paused
+(define-read-only (get-minting-paused)
+  (var-get minting-paused)
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -214,7 +220,11 @@
         (current-Nakamoto_1_Level_1-index (var-get Nakamoto_1_Level_1-index))
         (next-Nakamoto_1_Level_1-index (+ u1 (var-get Nakamoto_1_Level_1-index)))
         (current-Nakamoto_1_Level_1-subtype-index (var-get Nakamoto_1_Level_1-subtype-index))
+        (is-minting-paused (var-get minting-paused))
       )
+
+      ;; checking for minting-paused
+      (asserts! (is-eq is-minting-paused false) ERR-MINTING-PAUSED)
 
       ;; checking for Nakamoto_1_Level_1-index against entire Nakamoto_1_Level_1 collection (24k)
       (asserts! (< current-Nakamoto_1_Level_1-index Nakamoto_1_Level_1-limit) ERR-ALL-MINTED)
@@ -363,6 +373,22 @@
 
     ;; var-set new mint price
     (ok (var-set mint-price new-mint-price))
+  )
+)
+
+;; Update Minting Paused
+;; @desc - function for any of the admins to var-set  minting-paused
+;; @param - new-mint-price (uint): new mint price
+(define-public (update-minting-paused (new-minting-paused bool))
+  (let
+    (
+      (current-admin-list (var-get admin-list))
+    )
+    ;; asserts tx-sender is an admin using is-some & index-of
+    (asserts! (is-some (index-of current-admin-list tx-sender)) ERR-NOT-AUTH)
+
+    ;; var-set new minting paused
+    (ok (var-set minting-paused new-minting-paused))
   )
 )
 

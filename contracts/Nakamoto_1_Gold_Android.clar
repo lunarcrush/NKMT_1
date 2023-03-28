@@ -36,7 +36,7 @@
 (define-constant ERR-LIST-ADMIN (err u106))
 
 ;; vars
-(define-data-var uri-root (string-ascii 102) "https://nakamoto1.space/gold_android/")
+(define-data-var uri-root (string-ascii 37) "https://nakamoto1.space/gold_android/")
 (define-data-var Nakamoto_1_Gold_Android-index uint u1)
 
 ;; Admin list for minting

@@ -7,8 +7,13 @@ Clarinet.test({
     name: "Mint android  URI is correct",
     async fn(chain: Chain, accounts: Map<string, Account>) {
 
+        let deployer = accounts.get('deployer')!;
         let wallet_1 = accounts.get('wallet_1')!;
         let wallet_2 = accounts.get('wallet_2')!;
+        let initial_unpause = chain.mineBlock([
+            Tx.contractCall("Nakamoto_1_Level_1", "update-minting-paused", [types.bool(false)], deployer.address),
+        ]);
+        initial_unpause.receipts[0].result.expectOk();
 
         let mintFirstBlock = chain.mineBlock([
             Tx.contractCall("Nakamoto_1_Level_1", "Mint_2_Nakamoto_1_Level_1", [], wallet_1.address),
