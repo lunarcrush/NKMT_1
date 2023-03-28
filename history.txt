@@ -22,3 +22,20 @@ get_assets_maps
 (contract-call? .Nakamoto_1_Level_1 updatet-minting-paused false)
 (contract-call? .Nakamoto_1_Level_1 update-minting-paused false)
 (contract-call? .Nakamoto_1_Level_1 get-minting-paused)
+(contract-call? .Nakamoto_1_Level_1 update-minting-paused true)
+(contract-call? .Nakamoto_1_Level_1 get-minting-paused)
+(contract-call? .Nakamoto_1_Level_1 admin-mint-public (u0 u0 u0))
+(contract-call? .Nakamoto_1_Level_1 admin-mint-public list(u0 u0 u0))
+(contract-call? .Nakamoto_1_Level_1 admin-mint-public list u0 u0 u0)
+(contract-call? .Nakamoto_1_Level_1 admin-mint-public (list u0 u0 u0))
+::help
+::get_asset_maps
+get_asset_maps
+(get_asset_maps)
+(get_assets_maps)
+get_assets_maps
+::get_assets_maps
+(contract-call? .Nakamoto_1_Level_1 admin-mint-public (list u0 u0 u0))
+::get_assets_maps
+(contract-call? .Nakamoto_1_Gold_Android Mint_Nakamoto_1_Gold_Android)
+::get_assets_maps
