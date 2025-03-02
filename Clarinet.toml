@@ -1,35 +1,41 @@
 [project]
-name = "Nakamoto_1"
+name = 'Nakamoto_1'
+description = ''
 authors = []
-description = ""
 telemetry = false
+cache_dir = '.cache'
 requirements = []
-boot_contracts = ["pox", "costs-v2", "bns"]
-
-[project.cache_location]
-path = ".requirements"
-
-[contracts.Nakamoto_1_Level_1]
-path = "contracts/Nakamoto_1_Level_1.clar"
-
-[contracts.Nakamoto_1_Level_2]
-path = "contracts/Nakamoto_1_Level_2.clar"
+[contracts.DROID]
+path = 'contracts/DROID.clar'
+clarity_version = 2
+epoch = 2.5
 
 [contracts.Nakamoto_1_Android]
-path = "contracts/Nakamoto_1_Android.clar"
+path = 'contracts/Nakamoto_1_Android.clar'
+clarity_version = 1
+epoch = 2.05
 
 [contracts.Nakamoto_1_Gold_Android]
-path = "contracts/Nakamoto_1_Gold_Android.clar"
+path = 'contracts/Nakamoto_1_Gold_Android.clar'
+clarity_version = 1
+epoch = 2.05
+
+[contracts.Nakamoto_1_Level_1]
+path = 'contracts/Nakamoto_1_Level_1.clar'
+clarity_version = 1
+epoch = 2.05
+
+[contracts.Nakamoto_1_Level_2]
+path = 'contracts/Nakamoto_1_Level_2.clar'
+clarity_version = 1
+epoch = 2.05
 
 [contracts.sip-09]
-path = "contracts/sip-09.clar"
-
-[repl]
-costs_version = 2
-parser_version = 2
-
+path = 'contracts/sip-09.clar'
+clarity_version = 1
+epoch = 2.05
 [repl.analysis]
-passes = ["check_checker"]
+passes = ['check_checker']
 
 [repl.analysis.check_checker]
 strict = false
